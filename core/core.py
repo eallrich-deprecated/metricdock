@@ -6,6 +6,7 @@ from flask import Flask, abort, g, request
 import redis
 
 from . import settings
+from .whisperdb import Whisper
 
 logging.basicConfig(**settings.logging)
 logger = logging.getLogger(__name__)
@@ -23,7 +24,9 @@ def get_redis():
 
 @app.route('/')
 def root():
-    return "Hello!"
+    top_level = os.listdir(settings.whisper_dir)
+    response = {'metrics': [name for name in top_level]}
+    return json.dumps(response)
 
 
 @app.route('/latest')
@@ -46,8 +49,13 @@ def trim():
 
 def save(metrics):
     logger.info("Saving %d metrics" % len(metrics))
+    
     now = int(time.time())
     get_redis().zadd(settings.redis_latest, now, json.dumps(metrics))
+    
+    for m in metrics:
+        wsp = Whisper(m['metric'])
+        wsp.save(m['value'], m['timestamp'])
 
 @app.route('/publish', methods=['POST'])
 def publish():
