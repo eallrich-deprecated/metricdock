@@ -2,7 +2,7 @@ import os
 
 # From metricdock/core/settings.py to metricdock/
 cwd = os.path.abspath(os.path.dirname(__file__))
-PROJECT_ROOT = os.path.abspath(os.path.join(cwd), os.pardir))
+PROJECT_ROOT = os.path.abspath(os.path.join(cwd), os.pardir)
 
 
 # logging
