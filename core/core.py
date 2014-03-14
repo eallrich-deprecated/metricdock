@@ -25,9 +25,12 @@ def get_redis():
 
 @app.route('/')
 def root():
-    top_level = os.listdir(settings.whisper_path)
-    response = {'metrics': [name for name in top_level]}
-    return json.dumps(response)
+    if os.path.isdir(settings.whisper_path):
+        top_level = os.listdir(settings.whisper_path)
+        response = {'metrics': [name for name in top_level]}
+        return json.dumps(response)
+    else:
+        return json.dumps({'metrics': []})
 
 
 @app.route('/latest')
