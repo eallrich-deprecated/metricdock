@@ -47,7 +47,7 @@ def trim():
 def save(metrics):
     logger.info("Saving %d metrics" % len(metrics))
     now = int(time.time())
-    r.zadd(settings.redis_latest, now, json.dumps(metrics))
+    get_redis().zadd(settings.redis_latest, now, json.dumps(metrics))
 
 @app.route('/publish', methods=['POST'])
 def publish():
