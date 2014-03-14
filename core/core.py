@@ -43,6 +43,7 @@ def latest():
         json_style.extend(json.loads(m))
     return json.dumps(json_style)
 
+
 @app.route('/trim', methods=['POST'])
 def trim():
     """Trims the set of latest metrics to a recent time interval"""
@@ -50,6 +51,7 @@ def trim():
     n = get_redis().zremrangebyscore(settings.redis_latest, '-inf', discard_ts)
     logger.info("Trimmed %d metrics from latest zset" % n)
     return "%d\n" % n
+
 
 def save(metrics):
     logger.info("Saving %d metrics" % len(metrics))
@@ -60,6 +62,7 @@ def save(metrics):
     for m in metrics:
         wsp = Whisper(m['metric'])
         wsp.save(m['value'], m['timestamp'])
+
 
 @app.route('/publish', methods=['POST'])
 def publish():
