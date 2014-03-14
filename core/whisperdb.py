@@ -11,13 +11,15 @@ logger = logging.getLogger(__name__)
 class Whisper(object):
     @staticmethod
     def make_db_name(metric_name):
-        return metric_name.replace('.', '/')
+        with_dirs = metric_name.replace('.', '/')
+        with_extension = "%s.wsp" % with_dirs
+        return with_extension
     
     def __init__(self, metric):
         self.name = Whisper.make_db_name(metric)
         self.db = os.path.join(settings.whisper_path, self.name)
         
-        if not os.path.exists(self.db):
+        if not os.path.isfile(self.db):
             logger.info("Creating new whisper DB '%s'" % self.name)
             if not os.path.exists(os.path.dirname(self.db)):
                 os.makedirs(os.path.dirname(self.db))
