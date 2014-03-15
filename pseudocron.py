@@ -32,7 +32,7 @@ def persist_whisper():
 
 
 def trim_latest_metrics_queue():
-    r = requests.post("http://127.0.0.1:%s/trim" % os.environ['PORT'])
+    r = requests.post("http://localhost:%s/trim" % os.environ['PORT'])
     if r.status_code == 200:
         logger.debug("Flask reported success removing old metrics")
     else:
