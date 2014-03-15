@@ -58,8 +58,12 @@ def read_most_recent():
     for obj in container.get_objects():
         if not latest or obj.last_modified > latest.last_modified:
             latest = obj
-    logger.debug("Latest is %s (%s)" % (latest.name, latest.last_modified))
-    return read(latest)
+    if latest:
+        logger.debug("Latest is %s (%s)" % (latest.name, latest.last_modified))
+        return read(latest)
+    else:
+        logger.warning("Unable to find any objects, container is empty")
+        return None
 
 
 def trim(keep=10):
