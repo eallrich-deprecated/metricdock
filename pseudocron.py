@@ -34,7 +34,7 @@ def persist_whisper():
 def trim_latest_metrics_queue():
     r = requests.post("http://%s/trim" % os.environ['PUBLIC_NAME'])
     if r.status_code == 200:
-        logger.debug("%s metrics trimmed" % r.text)
+        logger.debug("%s metrics trimmed" % r.text.strip())
     else:
         logger.warn("Received status %d when trimming metrics" % r.status_code)
 
