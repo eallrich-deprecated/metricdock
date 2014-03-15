@@ -31,16 +31,16 @@ def persist_whisper():
     swiftfs.write(archive)
 
 
-def trim_persisted_whisper_files():
-    swiftfs.trim(keep=10)
-
-
 def trim_latest_metrics_queue():
-    r = requests.get("")
+    r = requests.post("http://127.0.0.1:%d/trim" % os.environ['PORT'])
     if r.status_code == 200:
         logger.debug("Flask reported success removing old metrics")
     else:
         logger.warn("Flask reported status %d when removing old metrics!" % r.status_code)
+
+
+def trim_persisted_whisper_files():
+    swiftfs.trim(keep=10)
 
 
 if __name__ == "__main__":
@@ -55,10 +55,11 @@ if __name__ == "__main__":
         
         # Every minute:
         persist_whisper()
+        trim_latest_metrics_queue()
         
         # Every five minutes:
         if i % 5 == 0:
-            trim_latest_metrics_queue()
+            #trim_latest_metrics_queue()
         
         # Every ten minutes:
         if i % 10 == 0:
