@@ -9,6 +9,10 @@ logger = logging.getLogger(__name__)
 
 def _init():
     """Connects to the Swift service and returns the specified container"""
+    if not settings.swift:
+        logger.error("Unable to connect to swift: Missing configuration")
+        raise RuntimeError("Swift configuration is incomplete")
+    
     connection = cloudfiles.get_connection(**settings.swift)
     container_name = settings.swift['container']
     
