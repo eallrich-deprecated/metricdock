@@ -75,7 +75,7 @@ def trim(keep=10):
     names = [o.name for o in container.get_objects()]
     names.sort()
     to_delete = names[:-keep]
-    logger.debug("Trimming %d objects" % len(to_delete))
+    logger.debug("Trimming %d objects from container" % len(to_delete))
     for name in to_delete:
         container.delete_object(name)
 
