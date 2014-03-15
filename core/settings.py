@@ -1,3 +1,4 @@
+import logging as logging_module
 import os
 
 # From metricdock/core/settings.py to metricdock/
@@ -12,6 +13,9 @@ logging = {
     'level':  'DEBUG',
 }
 
+logging_module.basicConfig(**logging)
+logger = logging_module.getLogger(__name__)
+
 
 # redis
 # -----
@@ -23,6 +27,21 @@ redis_server = {
 
 redis_latest = 'metrics:latest'
 redis_latest_bound = 600 # seconds
+
+
+# swift
+# -----
+try:
+    swift = {
+        'authurl': os.environ['SWIFT_AUTHURL'],
+        'username': os.environ['SWIFT_USERNAME'],
+        'api_key':  os.environ['SWIFT_API_KEY'],
+        'container': os.environ['SWIFT_CONTAINER'],
+    }
+except KeyError:
+    logger.warn("Swift configuration is incomplete; no persistence exists!")
+    logger.warn("Have you defined all of the required environment variables?")
+    swift = None
 
 
 # whisper
