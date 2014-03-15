@@ -34,9 +34,9 @@ def persist_whisper():
 def trim_latest_metrics_queue():
     r = requests.post("http://%s/trim" % os.environ['PUBLIC_NAME'])
     if r.status_code == 200:
-        logger.debug("Flask reported success removing old metrics")
+        logger.debug("%s metrics trimmed" % r.text)
     else:
-        logger.warn("Flask reported status %d when removing old metrics!" % r.status_code)
+        logger.warn("Received status %d when trimming metrics" % r.status_code)
 
 
 def trim_persisted_whisper_files():
@@ -55,7 +55,6 @@ if __name__ == "__main__":
         
         # Every minute:
         persist_whisper()
-        trim_latest_metrics_queue()
         
         # Every five minutes:
         if i % 5 == 0:
