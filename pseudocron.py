@@ -59,7 +59,7 @@ if __name__ == "__main__":
         
         # Every five minutes:
         if i % 5 == 0:
-            #trim_latest_metrics_queue()
+            trim_latest_metrics_queue()
         
         # Every ten minutes:
         if i % 10 == 0:
