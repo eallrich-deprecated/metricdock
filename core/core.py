@@ -43,7 +43,7 @@ def find_whispers():
 
 @app.route('/fetch')
 def fetch():
-    response = {'metrics': find_whispers()}
+    response = {'metrics': [w.replace('/','.') for w in find_whispers()]}
     return json.dumps(response)
 
 
