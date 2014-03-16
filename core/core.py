@@ -41,7 +41,7 @@ def fetch():
 
 @app.route('/fetch/<metric>')
 def fetch_metric(metric):
-    return "Asked for '%s'" % metric
+    return fetch_metric_hour(metric)
 
 
 @app.route('/fetch/<metric>/<start>/<end>')
