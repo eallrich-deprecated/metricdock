@@ -18,4 +18,4 @@ heroku config:set SWIFT\_CONTAINER=metrics1
 heroku config:set SWIFT\_USERNAME=metricdock:whisper
 
 To enable redundancy, tell the app about other dock servers:
-heroku config:set DOCKS=http://metrics.example.org
+heroku config:set DOCKS=http://metrics2.example.com,http://metrics3.example.com
