@@ -34,13 +34,15 @@ def find_whispers():
     if not os.path.isdir(settings.whisper_path):
         return whispers
     
-    for root, directories, files in os.walk(settings.whisper_path):
+    # We're going to remove this prefix from results
+    prefix = os.path.join(settings.whisper_path, '/')
+    
+    for root, _, files in os.walk(settings.whisper_path):
+        root = root.replace(prefix, '')
         for name in files:
             # Drop the extension
-            name = name.rsplit('.')[0]
+            name = name.rsplit('.', 1)[0]
             path = os.path.join(root, name)
-            # Drop the whisper path prefix & its trailing slash
-            path = path.replace(os.path.join(settings.whisper_path, '/'), '')
             whispers.append(path)
     
     return whispers
