@@ -36,8 +36,11 @@ def find_whispers():
     
     for root, directories, files in os.walk(settings.whisper_path):
         for name in files:
+            # Drop the extension
+            name = name.rsplit('.')[0]
             path = os.path.join(root, name)
-            path = path.replace(settings.whisper_path, '')
+            # Drop the whisper path prefix & its trailing slash
+            path = path.replace(os.path.join(settings.whisper_path, '/'), '')
             whispers.append(path)
     
     return whispers
