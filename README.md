@@ -27,3 +27,10 @@ To enable redundancy, tell the app about other dock servers:
 ```shell
 heroku config:set DOCKS=http://metrics2.example.com,http://metrics3.example.com
 ```
+
+Redundancy
+----------
+Since group membership is currently manually controlled via the 'DOCKS'
+envvar, modifying group membership (e.g. adding a new server) involves making
+the change on a single dock, allowing it time to restart and sync, and then
+proceeding to make the change on another dock.
