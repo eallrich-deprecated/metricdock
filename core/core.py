@@ -52,7 +52,7 @@ def fetch_metric_interval(metric, start, end):
 def latest():
     """Returns a json list of all metrics received recently"""
     metrics = get_redis().zrange(settings.redis_latest, 0, -1)
-    logger.info("Latest zset contains %d metrics" % len(metrics))
+    logger.info("Latest zset contains %d entries" % len(metrics))
     json_style = []
     for m in metrics:
         json_style.extend(json.loads(m))
