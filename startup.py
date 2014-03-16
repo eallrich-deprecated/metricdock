@@ -33,7 +33,12 @@ def get_latest_from_cluster():
         url = "%s/latest" % server
         logger.debug("Retrieving %s" % url)
         try:
-            r = requests.get(url)
+            # Because we have less than 60 seconds, we're not going to wait
+            # around for a long timeout. If we don't hear back almost
+            # immediately we need to abandon the attempt and move on (even at
+            # the risk of losing some metrics). Hopefully one of the other
+            # redundant metricdocks will be reachable.
+            r = requests.get(url, timeout=10)
             latest = r.json()
             with core.app.app_context():
                 core.save(latest)
