@@ -1,3 +1,4 @@
+import datetime
 import json
 import logging
 import os
@@ -45,7 +46,21 @@ def fetch_metric(metric):
 
 @app.route('/fetch/<metric>/<start>/<end>')
 def fetch_metric_interval(metric, start, end):
-    return "Asked for '%s' from %d to %d" % (metric, int(start), int(end))
+    wsp = Whisper(metric)
+    timeinfo, values = wsp.fetch(start, end)
+    start, stop, step = timeinfo
+    
+    response = {'start': start, 'stop': stop, 'step': step, 'values': values}
+    return json.dumps(response)
+
+
+@app.route('/fetch/<metric>/hour')
+def fetch_metric_hour(metric):
+    one_hour_ago = datetime.datetime.now() - datetime.timedelta(hours=1)
+    start_ts = one_hour_ago.strftime("%s")
+    end_ts = int(time.time())
+    
+    return fetch_metric_interval(metric, start_ts, end_ts)
 
 
 @app.route('/latest')
