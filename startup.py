@@ -1,8 +1,11 @@
+import json
 import logging
 import os
 import tarfile
 
-from core import settings, swiftfs
+import requests
+
+from core import core, settings, swiftfs
 
 logging.basicConfig(**settings.logging)
 logger = logging.getLogger(__name__)
@@ -20,7 +23,26 @@ def get_whisper_baseline():
     tar.close()
 
 
+def get_latest_from_cluster():
+    try:
+        servers = os.environ['DOCKS'].split(',')
+    except KeyError:
+        logger.warning("No servers defined for retrieving latest metrics.")
+        return
+    
+    for server in servers:
+        logger.debug("Retrieving /latest from %s" % server)
+        try:
+            r = requests.get(os.path.join(server, '/latest'))
+            latest = json.loads(r.json())
+            core.save(latest)
+        except requests.exceptions.RequestException, err:
+            logger.error("Unable to retrieve /latest from %s" % server)
+            logger.error("Exception: %s" % err)
+
+
 if __name__ == "__main__":
     logger.info("Initializing")
     get_whisper_baseline()
+    get_latest_from_cluster()
     logger.info("Init complete")
