@@ -35,7 +35,7 @@ def find_whispers():
         return whispers
     
     # We're going to remove this prefix from results
-    prefix = os.path.join(settings.whisper_path, '/')
+    prefix = settings.whisper_path
     
     for root, _, files in os.walk(settings.whisper_path):
         root = root.replace(prefix, '')
