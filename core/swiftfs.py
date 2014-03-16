@@ -60,7 +60,7 @@ def read_most_recent():
             latest = obj
     if latest:
         logger.debug("Latest is %s (%s)" % (latest.name, latest.last_modified))
-        return read(latest)
+        return read(latest.name)
     else:
         logger.warning("Unable to find any objects, container is empty")
         return None
