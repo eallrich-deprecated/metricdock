@@ -29,14 +29,22 @@ def root():
     return str(int(time.time()))
 
 
+def find_whispers():
+    whispers = []
+    if not os.path.isdir(settings.whisper_path):
+        return whispers
+    
+    for root, directories, files in os.walk(settings.whisper_path):
+        for name in files:
+            whispers.append(os.path.join(root, name)
+    
+    return whispers
+
+
 @app.route('/fetch')
 def fetch():
-    if os.path.isdir(settings.whisper_path):
-        top_level = os.listdir(settings.whisper_path)
-        response = {'metrics': [name for name in top_level]}
-        return json.dumps(response)
-    else:
-        return json.dumps({'metrics': []})
+    response = {'metrics': find_whispers()}
+    return json.dumps(response)
 
 
 @app.route('/fetch/<metric>')
