@@ -35,7 +35,8 @@ def get_latest_from_cluster():
         try:
             r = requests.get(url)
             latest = r.json()
-            core.save(latest)
+            with core.app.app_context():
+                core.save(latest)
         except requests.exceptions.RequestException, err:
             logger.error("Unable to retrieve /latest from %s" % server)
             logger.error("Exception: %s" % err)
