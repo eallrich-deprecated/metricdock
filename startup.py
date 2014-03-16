@@ -31,9 +31,10 @@ def get_latest_from_cluster():
         return
     
     for server in servers:
-        logger.debug("Retrieving /latest from %s" % server)
+        url = "%s/latest" % server
+        logger.debug("Retrieving %s" % url)
         try:
-            r = requests.get(os.path.join(server, '/latest'))
+            r = requests.get(url))
             latest = json.loads(r.json())
             core.save(latest)
         except requests.exceptions.RequestException, err:
