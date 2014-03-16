@@ -3,6 +3,15 @@ metricdock
 
 Receives metrics in JSON via HTTP and stores them in Whisper databases.
 
+Overview
+--------
+In an effort to avoid losing metrics when a dock server restarts:
++ When a metric is received, it's written to Whisper and a redis "latest" queue
++ At startup, a baseline archive of Whisper is retrieved from persistent storage (e.g. a Swift service)
++ Fellow dock servers are queried for their "latest" queues
++ The other servers respond by sending all metrics stored in their "latest" queues
++ The received metrics are saved to Whisper; duplicate metrics simply overwrite each other
+
 Running on Heroku
 -----------------
 Compile the slug using both python and redis buildpacks:
