@@ -1,4 +1,3 @@
-import json
 import logging
 import os
 import tarfile
@@ -35,7 +34,7 @@ def get_latest_from_cluster():
         logger.debug("Retrieving %s" % url)
         try:
             r = requests.get(url)
-            latest = json.loads(r.json())
+            latest = r.json()
             core.save(latest)
         except requests.exceptions.RequestException, err:
             logger.error("Unable to retrieve /latest from %s" % server)
