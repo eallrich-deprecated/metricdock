@@ -34,7 +34,7 @@ def get_latest_from_cluster():
         url = "%s/latest" % server
         logger.debug("Retrieving %s" % url)
         try:
-            r = requests.get(url))
+            r = requests.get(url)
             latest = json.loads(r.json())
             core.save(latest)
         except requests.exceptions.RequestException, err:
