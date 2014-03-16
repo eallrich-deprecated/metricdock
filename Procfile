@@ -1,1 +1,1 @@
-web: python startup.py && honcho -f Procfile.next start
+web: honcho -f Procfile.next start

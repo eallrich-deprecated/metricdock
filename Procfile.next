@@ -1,3 +1,3 @@
-http: gunicorn core.core:app -w 3 -b 0.0.0.0:$PORT
+http: python startup.py && gunicorn core.core:app -w 3 -b 0.0.0.0:$PORT
 redis: bin/redis-server
 cron: python pseudocron.py
