@@ -36,6 +36,7 @@ class Whisper(object):
             )
     
     def save(self, value, timestamp):
+        logger.debug("Saving %s: %f" % (self.name, value))
         whisper.update(self.db, value, timestamp)
     
     def fetch(self, start, end=None):
