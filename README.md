@@ -16,3 +16,6 @@ heroku config:set SWIFT\_API\_KEY=0123456789ABCDEF
 heroku config:set SWIFT\_AUTHURL=https://objects.example.com/auth
 heroku config:set SWIFT\_CONTAINER=metrics1
 heroku config:set SWIFT\_USERNAME=metricdock:whisper
+
+To enable redundancy, tell the app about other dock servers:
+heroku config:set DOCKS=http://metrics.example.org
