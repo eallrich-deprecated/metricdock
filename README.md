@@ -16,10 +16,14 @@ heroku config:set PUBLIC_NAME=metrics1.example.com
 ```
 
 Set the following based on your Swift endpoint:
-heroku config:set SWIFT\_API\_KEY=0123456789ABCDEF
-heroku config:set SWIFT\_AUTHURL=https://objects.example.com/auth
-heroku config:set SWIFT\_CONTAINER=metrics1
-heroku config:set SWIFT\_USERNAME=metricdock:whisper
+```shell
+heroku config:set SWIFT_API_KEY=0123456789ABCDEF
+heroku config:set SWIFT_AUTHURL=https://objects.example.com/auth
+heroku config:set SWIFT_CONTAINER=metrics1
+heroku config:set SWIFT_USERNAME=metricdock:whisper
+```
 
 To enable redundancy, tell the app about other dock servers:
+```shell
 heroku config:set DOCKS=http://metrics2.example.com,http://metrics3.example.com
+```
