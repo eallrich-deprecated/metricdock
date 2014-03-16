@@ -37,7 +37,7 @@ def find_whispers():
     for root, directories, files in os.walk(settings.whisper_path):
         for name in files:
             path = os.path.join(root, name)
-            path.replace(settings.whisper_path, '')
+            path = path.replace(settings.whisper_path, '')
             whispers.append(path)
     
     return whispers
