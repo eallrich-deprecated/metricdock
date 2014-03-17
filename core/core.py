@@ -175,4 +175,4 @@ def delete(metric):
             logger.debug("OSError: %s" % err)
     
     # No content
-    return "Deleted %s" % path, 204
+    return "", 204
