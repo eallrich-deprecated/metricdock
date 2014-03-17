@@ -12,6 +12,8 @@ In an effort to avoid losing metrics when a dock server restarts:
 + The other servers respond by sending all metrics stored in their "latest" queues
 + The received metrics are saved to Whisper; duplicate metrics simply overwrite each other
 
+The API is documented with examples in the docs/ folder.
+
 Running on Heroku
 -----------------
 Compile the slug using both python and redis buildpacks:
