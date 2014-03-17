@@ -17,7 +17,7 @@ class Whisper(object):
     
     @staticmethod
     def make_db_path(db_name):
-        return os.path.join(settings.whisper_path, self.name)
+        return os.path.join(settings.whisper_path, db_name)
     
     def __init__(self, metric):
         self.name = Whisper.make_db_name(metric)
