@@ -158,3 +158,21 @@ def publish():
     
     # Created
     return "Saved %d metrics\n" % len(metrics), 201
+
+
+@app.route('/delete/<metric>', methods=['DELETE'])
+def delete(metric):
+    """Deletes the Whisper database for the specified metric"""
+    path = Whisper.make_db_path(Whisper.make_db_name(metric))
+    
+    if os.path.isfile(path):
+        logger.info("Deleting '%s' at '%s'" % (metric, path))
+        os.remove(path)
+        try:
+            os.removedirs(os.path.dirname(path))
+        except OSError, err:
+            logger.warning("Unable to remove leaf directory containing deleted Whisper file")
+            logger.debug("OSError: %s" % err)
+    
+    # No content
+    return "Deleted %s" % path, 204
