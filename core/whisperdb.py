@@ -15,21 +15,25 @@ class Whisper(object):
         with_extension = "%s.wsp" % with_dirs
         return with_extension
     
+    @staticmethod
+    def make_db_path(db_name):
+        return os.path.join(settings.whisper_path, self.name)
+    
     def __init__(self, metric):
         self.name = Whisper.make_db_name(metric)
-        self.db = os.path.join(settings.whisper_path, self.name)
+        self.path = Whisper.make_db_path(self.name)
         
-        if not os.path.isfile(self.db):
+        if not os.path.isfile(self.path):
             logger.info("Creating new whisper DB '%s'" % self.name)
-            if not os.path.exists(os.path.dirname(self.db)):
-                os.makedirs(os.path.dirname(self.db))
+            if not os.path.exists(os.path.dirname(self.path)):
+                os.makedirs(os.path.dirname(self.path))
             retentions = settings.whisper_archives.split(',')
             logger.debug("Retentions: %s" % retentions)
             # Convert the human-readable retentions into (seconds/period, # periods)
             archives = map(whisper.parseRetentionDef, retentions)
             logger.debug("Archives: %s" % archives)
             whisper.create(
-                self.db,
+                self.path,
                 archives,
                 xFilesFactor=settings.whisper_xfilesfactor,
                 aggregationMethod=settings.whisper_aggregation
@@ -37,11 +41,11 @@ class Whisper(object):
     
     def save(self, value, timestamp):
         logger.debug("Saving %s: %f" % (self.name, value))
-        whisper.update(self.db, value, timestamp)
+        whisper.update(self.path, value, timestamp)
     
     def fetch(self, start, end=None):
         if not end:
             end = int(time.time())
         # Returns ((start, end, step), [value1, value2, ...])
-        return whisper.fetch(self.db, start, end)
+        return whisper.fetch(self.path, start, end)
 
