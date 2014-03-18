@@ -172,9 +172,9 @@ def delete(metric):
     os.remove(path)
     try:
         os.removedirs(os.path.dirname(path))
-    except OSError, err:
+    except OSError as exc:
         logger.warning("Unable to remove leaf directory containing deleted Whisper file")
-        logger.debug("OSError: %s" % err)
+        logger.debug("OSError: %s" % exc)
     
     # No content
     return "", 204
