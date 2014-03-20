@@ -39,6 +39,11 @@ def get_latest_from_cluster():
             # the risk of losing some metrics). Hopefully one of the other
             # redundant metricdocks will be reachable.
             r = requests.get(url, timeout=10)
+            
+            if not r.status_code == 200:
+                logger.warn("Reply was %d from %s" % (r.status_code, url))
+                continue
+            
             latest = r.json()
             with core.app.app_context():
                 core.save(latest)
