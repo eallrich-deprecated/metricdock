@@ -41,7 +41,7 @@ def get_latest_from_cluster():
             r = requests.get(url, timeout=10)
             
             if not r.status_code == 200:
-                logger.warn("Reply was %d from %s" % (r.status_code, url))
+                logger.warn("%s responded with status %d" % (url, r.status_code))
                 continue
             
             latest = r.json()
