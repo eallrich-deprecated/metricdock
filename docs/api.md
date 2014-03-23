@@ -35,7 +35,7 @@ Retrieving
 ----------
 The /fetch endpoint supports retrieving data for a given metric within a specified time interval. The GET method is always expected here.
 
-Retrieving /fetch by itself returns a JSON document describing the set of recorded metrics. A specific metric may be retrieved via /fetch/<metric>/<start timestamp>/<end timestamp>. For convenience, the /fetch/<metric>/hour endpoint automatically retrieves the past hour of data for the metric.
+Retrieving /fetch by itself returns a JSON document describing the set of recorded metrics. A specific metric may be retrieved via /fetch/\<metric\>/\<start timestamp\>/\<end timestamp\>. For convenience, the /fetch/\<metric\>/hour endpoint automatically retrieves the past hour of data for the metric.
 
 Deleting
 --------
