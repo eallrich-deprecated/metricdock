@@ -143,14 +143,14 @@ def publish():
         # Float-able value?
         try:
             clean['value'] = float(clean['value'])
-        except ValueError:
-            return "'value' must be a float\n" % clean['value'], 400
+        except ValueError, TypeError:
+            return "'value' (%r) must be a float\n" % clean['value'], 400
         
         # Int-able timestamp?
         try:
             clean['timestamp'] = int(clean['timestamp'])
-        except ValueError:
-            return "'timestamp' must be an int\n" % clean['timestamp'], 400
+        except ValueError, TypeError:
+            return "'timestamp' (%r) must be an int\n" % clean['timestamp'], 400
         
         metrics.append(clean)
     
