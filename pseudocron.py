@@ -52,12 +52,13 @@ if __name__ == "__main__":
         i += 1
         
         # Every minute:
-        persist_whisper()
+        # None for now
         
         # Every five minutes:
         if i % 5 == 0:
+            persist_whisper()
             trim_latest_metrics_queue()
-        
+            
         # Every ten minutes:
         if i % 10 == 0:
             trim_persisted_whisper_files()
