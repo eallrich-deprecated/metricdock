@@ -81,7 +81,7 @@ def fetch_metric_hour(metric):
 @app.route('/fetch/<metric>/day')
 def fetch_metric_day(metric):
     one_day_ago = datetime.datetime.now() - datetime.timedelta(days=1)
-    start_ts = one_hour_ago.strftime("%s")
+    start_ts = one_day_ago.strftime("%s")
     end_ts = int(time.time())
 
     return fetch_metric_interval(metric, start_ts, end_ts)
