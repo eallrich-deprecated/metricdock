@@ -78,6 +78,15 @@ def fetch_metric_hour(metric):
     return fetch_metric_interval(metric, start_ts, end_ts)
 
 
+@app.route('/fetch/<metric>/day')
+def fetch_metric_hour(metric):
+    one_day_ago = datetime.datetime.now() - datetime.timedelta(days=1)
+    start_ts = one_hour_ago.strftime("%s")
+    end_ts = int(time.time())
+
+    return fetch_metric_interval(metric, start_ts, end_ts)
+
+
 @app.route('/latest')
 def latest():
     """Returns a json list of all metrics received recently"""
