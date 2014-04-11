@@ -138,6 +138,11 @@ def save(metrics):
 
 @app.route('/publish', methods=['POST'])
 def publish():
+    create()
+
+
+@app.route('/metrics', methods=['POST'])
+def create():
     """Accepts metrics from clients
     
     Saves metrics to whisper for persistence and also stashes them in a queue
