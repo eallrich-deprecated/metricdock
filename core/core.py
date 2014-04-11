@@ -138,7 +138,7 @@ def save(metrics):
 
 @app.route('/publish', methods=['POST'])
 def publish():
-    create()
+    return create()
 
 
 @app.route('/metrics', methods=['POST'])
@@ -213,9 +213,9 @@ def delete(metric):
 
 @app.route('/delete/<metric>', methods=['GET'])
 def browser_delete(metric):
-    delete(metric)
+    return delete(metric)
 
 
 @app.route('/metrics/<metric>', methods=['DELETE'])
 def api_delete(metric):
-    delete(metric)
+    return delete(metric)
