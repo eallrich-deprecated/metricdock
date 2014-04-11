@@ -187,7 +187,6 @@ def publish():
     return "Saved %d metrics\n" % len(metrics), 201
 
 
-@app.route('/delete/<metric>', methods=['DELETE'])
 def delete(metric):
     """Deletes the Whisper database for the specified metric"""
     path = Whisper.make_db_path(Whisper.make_db_name(metric))
@@ -205,3 +204,13 @@ def delete(metric):
     
     # No content
     return "", 204
+
+
+@app.route('/delete/<metric>', methods=['GET'])
+def browser_delete(metric):
+    delete(metric)
+
+
+@app.route('/metrics/<metric>', methods=['DELETE'])
+def api_delete(metric):
+    delete(metric)
