@@ -10,7 +10,7 @@ PROJECT_ROOT = os.path.abspath(os.path.join(cwd, os.pardir))
 # -------
 logging = {
     'format': '[%(levelname)s] %(message)s',
-    'level':  'DEBUG',
+    'level':  'INFO',
 }
 
 logging_module.basicConfig(**logging)
