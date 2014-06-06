@@ -68,5 +68,10 @@ if __name__ == "__main__":
             i = 0
         
         used = int(time.time()) - start
-        time.sleep(60 - used) # sleep for the remainder of the minute
+        try:
+            time.sleep(60 - used) # sleep for the remainder of the minute
+        except IOError as exc:
+            print "IOError on time.sleep(60 - %r): %s" % (used, exc)
+            # Default sleep after an error
+            time.sleep(50)
 
